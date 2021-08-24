@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Models\category;
-use Illuminate\Auth\Events\Validated;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use App\Models\city;
+use App\Models\country;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class cityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = category::all();
-        return response()->view('category.index', ['categories' => $categories]);
+        //
+        $cities = city::with('country')->get();
+        return response()->view('city.index', ['cities' => $cities]);
     }
 
     /**
@@ -27,7 +28,8 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return response()->view('category.create');
+        $countries = country::all();
+        return response()->view('city.create', ['countries' => $countries]);
     }
 
     /**
@@ -39,15 +41,18 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
-        // $validator = Validator($request->all(), [
-        //     'name' => 'required|string|max:30|min:3',
-        // ]);
         $request->validate([
             'name' => 'required|string|max:30|min:1',
+            'country_id' => 'string',
+            'status' => 'in:on',
         ]);
-        $category = new category();
-        $category->name = $request->get('name');
-        $isSaved = $category->save();
+
+        $city = new city();
+        $city->name = $request->get('name');
+        $city->country_id = $request->get('country_id');
+        $city->status = $request->has('status') ? true : false;
+
+        $isSaved = $city->save();
         session()->flash('message', $isSaved ? "save cuccessfuly" : "faild to creat");
         return redirect()->back();
     }
@@ -72,8 +77,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
-        $category = category::findOrFail($id);
-        return response()->view('category.edit', ['category' => $category]);
+        $city = city::findOrFail($id);
+        $countries = country::all();
+        return response()->view('city.edit', ['city' => $city, 'countries' => $countries]);
     }
 
     /**
@@ -88,11 +94,17 @@ class CategoryController extends Controller
         //
         $request->validate([
             'name' => 'required|string|max:30|min:1',
+            'country_id' => 'string',
+            'status' => 'in:on',
         ]);
-        $category = category::findOrFail($id);
-        $category->name = $request->get('name');
-        $isSave = $category->save();
-        return redirect()->route('categories.index');
+
+        $city = city::findOrFail($id);
+        $city->name = $request->get('name');
+        $city->country_id = $request->get('country_id');
+        $city->status = $request->has('status') ? true : false;
+
+        $isSaved = $city->save();
+        return redirect()->route('city.index');
     }
 
     /**
@@ -101,10 +113,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(category $category)
+    public function destroy(city $city)
     {
         //
-        $isDeleted = $category->delete();
+        $isDeleted = $city->delete();
         return response()->json(['message' => $isDeleted ? "Deleted successfully" : "Failed to delete"], $isDeleted ? 200 : 400);
     }
 }

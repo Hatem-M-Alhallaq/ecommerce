@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use App\Models\category;
 use App\Models\city;
 use App\Models\country;
@@ -134,7 +134,7 @@ class productController extends Controller
         return redirect()->back();
     }
 
-    
+
 
     /**
      * Display the specified resource.
@@ -258,7 +258,7 @@ class productController extends Controller
         } else {
             return response()->json(['icon' => 'error', 'title' => 'Failed to delete'], 400);
         }
-        
+
         // $isDeleted = $prodact->delete();
         // return response()->json(['message' => $isDeleted ? "Deleted successfully" : "Failed to delete"], $isDeleted ? 200 : 400);
     }

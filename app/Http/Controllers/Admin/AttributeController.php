@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Models\city;
-use App\Models\country;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use App\Models\attribute;
+use App\Models\attribute_group;
 use Illuminate\Http\Request;
 
-class cityController extends Controller
+class AttributeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class cityController extends Controller
     public function index()
     {
         //
-        $cities = city::with('country')->get();
-        return response()->view('city.index', ['cities' => $cities]);
+        $attributes = attribute::with('attributeGroup')->get();
+        return response()->view('attribute.index', ['attributes' => $attributes]);
     }
 
     /**
@@ -28,8 +28,8 @@ class cityController extends Controller
     public function create()
     {
         //
-        $countries = country::all();
-        return response()->view('city.create', ['countries' => $countries]);
+        $groups = attribute_group::all();
+        return response()->view('attribute.create', ['groups' => $groups]);
     }
 
     /**
@@ -43,16 +43,12 @@ class cityController extends Controller
         //
         $request->validate([
             'name' => 'required|string|max:30|min:1',
-            'country_id' => 'string',
-            'status' => 'in:on',
+            'group_id' => 'string'
         ]);
-
-        $city = new city();
-        $city->name = $request->get('name');
-        $city->country_id = $request->get('country_id');
-        $city->status = $request->has('status') ? true : false;
-
-        $isSaved = $city->save();
+        $attribute = new attribute();
+        $attribute->name = $request->get('name');
+        $attribute->group_id = $request->get('group_id');
+        $isSaved = $attribute->save();
         session()->flash('message', $isSaved ? "save cuccessfuly" : "faild to creat");
         return redirect()->back();
     }
@@ -77,9 +73,9 @@ class cityController extends Controller
     public function edit($id)
     {
         //
-        $city = city::findOrFail($id);
-        $countries = country::all();
-        return response()->view('city.edit', ['city' => $city, 'countries' => $countries]);
+        $attribute = attribute::findOrFail($id);
+        $groups = attribute_group::all();
+        return response()->view('attribute.edit', ['attribute' => $attribute, 'groups' => $groups]);
     }
 
     /**
@@ -93,18 +89,15 @@ class cityController extends Controller
     {
         //
         $request->validate([
-            'name' => 'required|string|max:30|min:1',
-            'country_id' => 'string',
-            'status' => 'in:on',
+            'name' => 'required|string',
+            'group_id' => 'required',
         ]);
+        $attribute = attribute::findOrFail($id);
+        $attribute->name = $request->get('name');
+        $attribute->group_id = $request->get('group_id');
 
-        $city = city::findOrFail($id);
-        $city->name = $request->get('name');
-        $city->country_id = $request->get('country_id');
-        $city->status = $request->has('status') ? true : false;
-
-        $isSaved = $city->save();
-        return redirect()->route('city.index');
+        $isSave = $attribute->save();
+        return redirect()->route('attribute.index');
     }
 
     /**
@@ -113,10 +106,10 @@ class cityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(city $city)
+    public function destroy(attribute $attribute)
     {
         //
-        $isDeleted = $city->delete();
+        $isDeleted = $attribute->delete();
         return response()->json(['message' => $isDeleted ? "Deleted successfully" : "Failed to delete"], $isDeleted ? 200 : 400);
     }
 }

@@ -1,21 +1,21 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AttributeController;
-use App\Http\Controllers\AttributeGroupController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\cityController;
-use App\Http\Controllers\ContactUsController;
-use App\Http\Controllers\CountryCityController;
-use App\Http\Controllers\countryController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\languageController;
-use App\Http\Controllers\orderController;
-use App\Http\Controllers\prodactCategoryController;
-use App\Http\Controllers\productController;
-use App\Http\Controllers\vendorController;
-use App\Http\Controllers\vendorStoreController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\AttributeGroupController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\cityController;
+use App\Http\Controllers\Admin\ContactUsController;
+use App\Http\Controllers\Admin\CountryCityController;
+use App\Http\Controllers\Admin\countryController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\languageController;
+use App\Http\Controllers\Admin\orderController;
+use App\Http\Controllers\Admin\prodactCategoryController;
+use App\Http\Controllers\Admin\productController;
+use App\Http\Controllers\Admin\vendorController;
+use App\Http\Controllers\Admin\vendorStoreController;
 use App\Models\country;
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Auth;

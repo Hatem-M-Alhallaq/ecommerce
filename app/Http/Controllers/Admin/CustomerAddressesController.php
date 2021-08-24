@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\Models\order;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class orderController extends Controller
+class CustomerAddressesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,6 @@ class orderController extends Controller
     public function index()
     {
         //
-        $order = order::get();
-        return view('order.index')->with('order' , $order);
-
     }
 
     /**

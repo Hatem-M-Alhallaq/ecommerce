@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,7 +49,7 @@ class AuthController extends Controller
     {
         return response()->view('auth.login');
     }
-    
+
     public function login(Request $request)
     {
         $validator = validator($request->all(), [

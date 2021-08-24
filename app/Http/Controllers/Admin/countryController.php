@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
-// use App\Http\Controllers\Controller;
-use App\Models\attribute;
-use App\Models\attribute_group;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use App\Models\country;
 use Illuminate\Http\Request;
 
-class AttributeController extends Controller
+class countryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class AttributeController extends Controller
     public function index()
     {
         //
-        $attributes = attribute::with('attributeGroup')->get();
-        return response()->view('attribute.index', ['attributes' => $attributes]);
+        $countries = country::all();
+        return response()->view('country.index', ['countries' => $countries]);
     }
 
     /**
@@ -28,8 +27,7 @@ class AttributeController extends Controller
     public function create()
     {
         //
-        $groups = attribute_group::all();
-        return response()->view('attribute.create', ['groups' => $groups]);
+        return response()->view('country.create');
     }
 
     /**
@@ -43,12 +41,16 @@ class AttributeController extends Controller
         //
         $request->validate([
             'name' => 'required|string|max:30|min:1',
-            'group_id' => 'string'
+            'country_code' => 'string',
+            'status' => 'in:on',
         ]);
-        $attribute = new attribute();
-        $attribute->name = $request->get('name');
-        $attribute->group_id = $request->get('group_id');
-        $isSaved = $attribute->save();
+
+        $country = new country();
+        $country->name = $request->get('name');
+        $country->country_code = $request->get('country_code');
+        $country->status = $request->has('status') ? true : false;
+
+        $isSaved = $country->save();
         session()->flash('message', $isSaved ? "save cuccessfuly" : "faild to creat");
         return redirect()->back();
     }
@@ -73,9 +75,8 @@ class AttributeController extends Controller
     public function edit($id)
     {
         //
-        $attribute = attribute::findOrFail($id);
-        $groups = attribute_group::all();
-        return response()->view('attribute.edit', ['attribute' => $attribute, 'groups' => $groups]);
+        $country = country::findOrFail($id);
+        return response()->view('country.edit', ['country' => $country]);
     }
 
     /**
@@ -89,15 +90,18 @@ class AttributeController extends Controller
     {
         //
         $request->validate([
-            'name' => 'required|string',
-            'group_id' => 'required',
+            'name' => 'required|string|max:30|min:1',
+            'country_code' => 'string',
+            'status' => 'in:on',
         ]);
-        $attribute = attribute::findOrFail($id);
-        $attribute->name = $request->get('name');
-        $attribute->group_id = $request->get('group_id');
 
-        $isSave = $attribute->save();
-        return redirect()->route('attribute.index');
+        $country =  country::findOrFail($id);
+        $country->name = $request->get('name');
+        $country->country_code = $request->get('country_code');
+        $country->status = $request->has('status') ? true : false;
+
+        $isSaved = $country->save();
+        return redirect()->route('country.index');
     }
 
     /**
@@ -106,10 +110,10 @@ class AttributeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(attribute $attribute)
+    public function destroy(country $country)
     {
         //
-        $isDeleted = $attribute->delete();
+        $isDeleted = $country->delete();
         return response()->json(['message' => $isDeleted ? "Deleted successfully" : "Failed to delete"], $isDeleted ? 200 : 400);
     }
 }
