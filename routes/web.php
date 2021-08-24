@@ -17,6 +17,7 @@ use App\Http\Controllers\productController;
 use App\Http\Controllers\vendorController;
 use App\Http\Controllers\vendorStoreController;
 use App\Models\country;
+use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\order;
 use Illuminate\Http\Request;
 
 class orderController extends Controller
@@ -14,6 +14,9 @@ class orderController extends Controller
     public function index()
     {
         //
+        $order = order::get();
+        return view('order.index')->with('order' , $order);
+
     }
 
     /**
