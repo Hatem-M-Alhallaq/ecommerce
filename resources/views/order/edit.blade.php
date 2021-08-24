@@ -72,6 +72,7 @@
         <div class="content">
             <form method="POST" action="{{route('order.update', $order->id)}}" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <!-- Vertical form options -->
                 <div class="row">
                     <div class="col-md-6">
@@ -213,9 +214,9 @@
                                         <select class="form-select" name="category_id">
                                             <option value="">Select a Payment Method</option>
                                             <option value="Paypal">  </option>
-                                            {{--                                               @foreach ($orders as $order)--}}
-                                            {{--                                                      <option value="{{$order->id}}"> {{$order->name}} </option>--}}
-                                            {{--                                                @endforeach--}}
+                                            {{--      @foreach ($orders as $order)--}}
+                                            {{--            <option value="{{$order->id}}"> {{$order->name}} </option>--}}
+                                            {{--      @endforeach--}}
                                         </select>
                                     </div>
                                 </div>

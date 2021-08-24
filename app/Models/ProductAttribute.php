@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class order extends Model
+class ProductAttribute extends Model
 {
     use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -16,23 +15,9 @@ class order extends Model
      */
     protected $fillable = [
         'id',
-        'store_id',
-        'currency',
-        'customer_id',
-        'first_name',
-        'last_name',
-        'phone',
-        'date',
-        'shipping_method',
-        'order_date',
-        'payment_method',
-        'shipping_address',
-        'sub_totle',
-        'shipping_amount',
-        'VAT',
-        'total	',
-        'affiliate_value',
-        'affiliate_id',
+        'product_id',
+        'attribute_id',
+        'value',
 
     ];
 
@@ -45,4 +30,5 @@ class order extends Model
         'password',
         'remember_token',
     ];
+
 }

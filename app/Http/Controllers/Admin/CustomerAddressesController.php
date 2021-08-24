@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\customer_address;
 use Illuminate\Http\Request;
 
 class CustomerAddressesController extends Controller
@@ -13,7 +14,8 @@ class CustomerAddressesController extends Controller
      */
     public function index()
     {
-        //
+        $o = customer_address::all();
+        return response()->view('$o.index', ['$customer_addresses' => $o]);
     }
 
     /**
@@ -23,7 +25,8 @@ class CustomerAddressesController extends Controller
      */
     public function create()
     {
-        //
+        return response()->view('customerAddress.create');
+
     }
 
     /**
@@ -34,7 +37,8 @@ class CustomerAddressesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->view('customerAddress.store');
+
     }
 
     /**
@@ -56,7 +60,8 @@ class CustomerAddressesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return response()->view('customerAddress.edit');
+
     }
 
     /**
@@ -68,7 +73,8 @@ class CustomerAddressesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response()->view('customerAddress.update');
+
     }
 
     /**

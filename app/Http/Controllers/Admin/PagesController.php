@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\Models\customer;
+use App\Models\page;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class PagesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $o = customer::all();
-        return response()->view('$o.index', ['$customers' => $o]);
+        $page = page::all();
+        return response()->view('$page.index', ['$pages' => $page]);
     }
 
     /**
@@ -25,7 +25,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return response()->view('customer.create');
+        return response()->view('pages.create');
+
     }
 
     /**
@@ -36,7 +37,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->view('customer.store');
+        return response()->view('pages.store');
     }
 
     /**
@@ -58,7 +59,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        return response()->view('customer.edit');
+        return response()->view('pages.edit');
 
     }
 
@@ -71,7 +72,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->view('customer.update');
+        return response()->view('pages.update');
 
     }
 

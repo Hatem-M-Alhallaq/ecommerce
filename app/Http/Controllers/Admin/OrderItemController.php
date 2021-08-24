@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\Models\customer;
-use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+use Illuminate\Http\Request;
+use App\Models\order_item;
+
+class OrderItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $o = customer::all();
-        return response()->view('$o.index', ['$customers' => $o]);
+        $order = order_item::all();
+        return response()->view('$order.index', ['$order_items' => $order]);
     }
 
     /**
@@ -25,7 +26,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return response()->view('customer.create');
+        return response()->view('orderItem.create');
+
     }
 
     /**
@@ -36,7 +38,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->view('customer.store');
+        return response()->view('orderItem.store');
     }
 
     /**
@@ -58,7 +60,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        return response()->view('customer.edit');
+        return response()->view('orderItem.edit');
 
     }
 
@@ -71,7 +73,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->view('customer.update');
+        return response()->view('orderItem.update');
 
     }
 

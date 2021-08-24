@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\Models\order;
 use Illuminate\Http\Request;
+use App\Models\order;
 
 class orderController extends Controller
 {
@@ -14,10 +14,9 @@ class orderController extends Controller
      */
     public function index()
     {
-        //
-        $order = order::get();
-        return view('order.index')->with('order' , $order);
-
+        dd("dddd");
+        $order = order::all();
+        return response()->view('$order.index', ['$orders' => $order]);
     }
 
     /**
@@ -27,7 +26,8 @@ class orderController extends Controller
      */
     public function create()
     {
-        //
+        return response()->view('order.create');
+
     }
 
     /**
@@ -38,7 +38,7 @@ class orderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->view('order.store');
     }
 
     /**
@@ -60,7 +60,8 @@ class orderController extends Controller
      */
     public function edit($id)
     {
-        //
+        return response()->view('order.edit');
+
     }
 
     /**
@@ -72,7 +73,8 @@ class orderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response()->view('order.update');
+
     }
 
     /**

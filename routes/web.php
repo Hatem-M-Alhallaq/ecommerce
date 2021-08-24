@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AttributeController;
@@ -55,13 +54,17 @@ Route::prefix('')->middleware('auth:web')->group(function () {
     Route::resource('language', languageController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('order', orderController::class);
+    Route::resource('order', orderController::class);
+    Route::resource('orderItem', OrderItemController::class);
+    Route::resource('pages', PagesController::class);
+    Route::resource('customerAddress', CustomerAddressesController::class);
+    Route::resource('productAttribute', ProductAttributeController::class);
 
     Route::get('country-city', [CountryCityController::class, 'index']);
     Route::post('get-cities', [CountryCityController::class, 'getCity']);
     Route::post('getCities', [vendorController::class, 'fetchCities']);
     Route::post('getCities', [productController::class, 'fetchCities']);
 
-
-
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
 });
